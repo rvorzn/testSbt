@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static ru.company.testing.GUI.hideElements;
 import static ru.company.testing.GUI.showElements;
@@ -45,10 +44,13 @@ public class TestGui extends JFrame {
     private JTextPane tp_descriptionQuestion;
     private JTextPane tp_answers;
     private JTextPane tp_descriptionTest;
-    private JTextArea textArea_listQuestion;
+    private JTextArea ta_listQuestion;
+    private JPanel jp_endTest;
+    private JLabel lbl_resultTest;
 
     private Student student;
     private boolean pause =false;
+    private boolean isEnd = false;
 
     private Test test;
     int keyQuestion;
@@ -63,7 +65,7 @@ public class TestGui extends JFrame {
 
             @Override
             public void run(){
-                int i = 1;
+                int i = test.getTime();
                 int min = 0;
                 lbl_timer.setText("Тест закончится через: " +  Integer.toString(i) + " минут");
                 while (!(i==0)){
@@ -95,6 +97,7 @@ public class TestGui extends JFrame {
         } ;
 
 
+        //Action start Test
         btn_beginTest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,7 +106,7 @@ public class TestGui extends JFrame {
                showQuestion(getQuestion(keyQuestion));
 
                hideElements(new JComponent[]{tf_nameStudent, btn_beginTest, tf_nameStudent, lbl_inputName, jp_descriptonTest });
-               showElements(new JComponent[]{jp_blockAnswer, jp_gotoQuestion, jp_timer});
+               showElements(new JComponent[]{jp_blockAnswer, jp_gotoQuestion, jp_timer, ta_listQuestion});
 
                timer.start();
             pack();
@@ -114,31 +117,21 @@ public class TestGui extends JFrame {
         btn_missAnswer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                student.setAnswers(keyQuestion, "");
-
                 showQuestion(getQuestion(++keyQuestion));
-
-
             }
         });
 
-//        //Action write Answer
-//        btnAnswer.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String answer = tf_answer.getText();
-//                student.setAnswers(keyQuestion, answer);
-//
-//                showQuestion(getQuestion(++keyQuestion));
-//
-//            }
-//        });
+        //Action show result count True answer for Student
         btn_showResult.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               lbl_titleTest.setText(Verification.checkAnswers(student));
+                showElements(lbl_resultTest);
+                hideElements(btn_showResult);
+                lbl_resultTest.setText("Правильных ответов: " + Verification.countTrueAnswers(student) + " из " + test.getQuestionsList().size() );
             }
         });
+
+        //Action exit from program befor test
         btn_exitPogram.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -161,6 +154,8 @@ public class TestGui extends JFrame {
                         e1.printStackTrace();
                     }
 
+                    lbl_titleTest.setText(test.getTitle());
+                    tp_descriptionTest.setText(test.getDescription() + "\n\n\nВремя на выполнение: " +  test.getTime());
                     jp_welcom.setVisible(false);
                     jp_test.setVisible(true);
                 }
@@ -191,15 +186,22 @@ public class TestGui extends JFrame {
         btn_endTest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(student.getAnswers().size() + " : " + test.getQuestionsList().size());
-                if (student.getAnswers().size() != test.getQuestionsList().size()){
-                    for (int i = 0; i < test.getQuestionsList().size(); i++) {
-                        if (student.getAnswers().get(i) == null){
-                            student.setAnswers(i, "");
-                        }
-                    }
+                showListQuestion();
+
+                if(timer.isInterrupted()){
+                    timer.interrupt();
                 }
-                theEndTest();
+
+                File file = new File(student.getFullName());
+                try{
+                    GUI.saveObject(student, file);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+                hideElements(new JComponent[]{jp_blockAnswer, jp_gotoQuestion, jp_timer, ta_listQuestion});
+                showElements(new JComponent[]{jp_endTest});
+
             }
         });
 
@@ -251,13 +253,10 @@ public class TestGui extends JFrame {
         });
     }
 
-
-
-
-
+    //получение вопроса
     private  Question getQuestion(int key){
         ArrayList<Question> questionList = test.getQuestionsList();
-        if (key <= (test.getQuestionsList().size()-1) ) {
+        if (key <= (test.getQuestionsList().size()-1) ) { // если дошли до конца возращаем null
              return questionList.get(key);
         }else {
             return null;
@@ -265,80 +264,75 @@ public class TestGui extends JFrame {
     }
 
     private void showQuestion (Question question){
-            if ((question != null) || !isEnd()) {
-                if (question != null) {
+        showListQuestion();
+        if (isEnd()){
+            JOptionPane.showMessageDialog(jp_mainTestGui,
+                    "Поздравляем вы ответили на все вопросы и у вас осталось время, вы можете завершить" +
+                            "тест сами или он закончиться автоматически по истечению времени",
+                    "УРА УРА УРА",
+                    JOptionPane.INFORMATION_MESSAGE);
+            isEnd = true;
 
-                    tp_descriptionQuestion.setText(question.getDescription());
-                    tp_question.setText(question.getQuestion());
-                    tp_answers.setText(question.getAnsver());
-                    //отображение кнопок управление вопросами и текущий вопрос
-                    btn_preQuestion.setVisible(keyQuestion == 0 ? false : true);
-                    btn_nextQuestion.setVisible(keyQuestion == (test.getQuestionsList().size()-1) ? false : true);
-                    lbl_currentQuewstion.setText("Текущий вопрос №" + (keyQuestion+1));
-                    //если ответ на вопрос уже есть то отображаем его
-                    tf_answer.setText(student.getAnswers().get(keyQuestion) == null ? "" : student.getAnswers().get(keyQuestion) );
-                    showListQuestion();
-                    return;
-                } else {
-                    for (int i = 0; i < student.getAnswers().size(); i++) {
-                        if (student.getAnswers().get(i) == null || "".equalsIgnoreCase(student.getAnswers().get(i).trim())) {
-                            keyQuestion = i;
-                            showQuestion(getQuestion(keyQuestion));
-                        }
-                    }
+        }
+        //если дошли до последнего вопроса
+        if (question != null) {
+
+            tp_descriptionQuestion.setText(question.getDescription());
+            tp_question.setText(question.getQuestion());
+            tp_answers.setText(question.getAnsver());
+            //отображение кнопок управление вопросами и текущий вопрос
+            btn_preQuestion.setVisible(keyQuestion == 0 ? false : true);
+            btn_nextQuestion.setVisible(keyQuestion == (test.getQuestionsList().size()-1) ? false : true);
+            lbl_currentQuewstion.setText("Текущий вопрос №" + (keyQuestion+1));
+            //если ответ на вопрос уже есть то отображаем его
+            tf_answer.setText(student.getAnswers()[keyQuestion] == null ? "" : student.getAnswers()[keyQuestion]);
+            return;
+        } else {
+            for (int i = 0; i < student.getAnswers().length; i++) {
+                if (student.getAnswers()[i] == null || "".equalsIgnoreCase(student.getAnswers()[i].trim())) {
+                    keyQuestion = i;
+                    showQuestion(getQuestion(keyQuestion));
                 }
             }
-            pack();
+            keyQuestion--;
+
+
+        }
+        pack();
     }
 
     private  boolean isEnd(){
-        if (student.getAnswers().size() == test.getQuestionsList().size()) {
-            for (String s : student.getAnswers().values() ) {
-                if ("".equalsIgnoreCase(s.trim())){
-                    return false;
-                }
+        if (isEnd) {return false;}
+        for (String s : student.getAnswers()) {
+            if (s == null || "".equalsIgnoreCase(s.trim())){
+                return false;
             }
         }
-        return false;
+        return true;
     }
+
+
 
     private void showListQuestion(){
         int count = test.getQuestionsList().size();
-        HashMap<Integer, String> answersStudent = student.getAnswers();
+        String[] answersStudent = student.getAnswers();
         StringBuilder listQuestionAndStatus = new StringBuilder();
         for (int i = 0; i < count; i++) {
-
             listQuestionAndStatus.append( "Вопрос №" + (i+1) + " - " +
-                    ((answersStudent.get(i) == null ||"".equalsIgnoreCase(answersStudent.get(i)))  ? "" : "Ответ дан") + "\n");
+                    ((answersStudent[i] == null ||"".equalsIgnoreCase(answersStudent[i]))  ? "" : "Ответ дан") + "\n");
 
         }
-        textArea_listQuestion.setText(listQuestionAndStatus.toString());
+        ta_listQuestion.setText(listQuestionAndStatus.toString());
 
     }
 
-
-    private void theEndTest(){
-        showListQuestion();
-
-        File file = new File(student.getFullName());
-        try{
-            GUI.saveObject(student, file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        lbl_titleTest.setText("Спасибо что прошли тест");
-        hideElements(new JComponent[]{jp_blockAnswer, jp_gotoQuestion, jp_timer});
-        showElements(new JComponent[]{btn_showResult, btn_exitPogram});
-    }
 
 
     public void start(){
         setContentPane(jp_mainTestGui);
         jp_welcom.setVisible(true);
         jp_test.setVisible(false);
-        hideElements(new JComponent[]{jp_gotoQuestion, jp_blockAnswer, btn_exitPogram, btn_showResult, jp_timer});
+        hideElements(new JComponent[]{jp_gotoQuestion, jp_blockAnswer, jp_endTest, jp_timer, ta_listQuestion});
         setSize(750, 400);
         setVisible(true);
 

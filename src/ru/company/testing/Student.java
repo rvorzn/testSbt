@@ -8,8 +8,7 @@ import java.util.List;
 public class Student implements Serializable {
     private String fullName;
     private Test test;
-    private HashMap<Integer, String> answers = new HashMap<>();
-
+    private String[] answers;
 
     Student(String fullName){
         this.fullName = fullName;
@@ -17,22 +16,22 @@ public class Student implements Serializable {
 
     public void setTest(Test test) {
         this.test = test;
+        answers = new String[test.getQuestionsList().size()];
     }
 
     public void setAnswers(int key, String answer) {
-        answers.put(key, answer);
+        answers[key] = answer;
     }
-
 
     public Test getTest() {
         return test;
     }
 
-    public HashMap<Integer, String> getAnswers() {
-        return answers;
-    }
+    public String[] getAnswers() { return answers; }
 
     public String getFullName() {
         return fullName;
     }
+
+
 }

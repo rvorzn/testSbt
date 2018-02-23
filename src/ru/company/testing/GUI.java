@@ -1,6 +1,8 @@
 package ru.company.testing;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.ColorModel;
 import java.io.*;
 
 public class GUI {
@@ -43,6 +45,35 @@ public class GUI {
         for (JComponent jcom: arr_comp) {
             jcom.setVisible(true);
         }
+    }
+
+
+    public static void showMessage(String message,JLabel label, int timeInSeconds, Color color ){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                label.setForeground(color);
+                label.setText(message);
+                try {
+                    Thread.sleep(timeInSeconds*1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                label.setText("");
+            }
+        }).start();
+    }
+
+    public static void showMessage(String message,JLabel label, int timeInSeconds ){
+        showMessage(message, label, timeInSeconds, Color.black);
+    }
+
+    public static void showMessage(String message,JLabel label){
+        showMessage(message, label, 3, Color.black);
+    }
+
+    public static void showMessage(String message,JLabel label, Color color){
+        showMessage(message, label, 3, color);
     }
 
 }

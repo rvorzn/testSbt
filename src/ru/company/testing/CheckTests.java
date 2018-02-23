@@ -2,6 +2,7 @@ package ru.company.testing;
 
 import javax.swing.*;
 import javax.swing.table.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -36,7 +37,7 @@ public class CheckTests extends JFrame {
     private JTextField tf_levelTrueAnswer;
     private JTextField tf_leftBorderLine;
     private JTextField tf_rigthBorderLine;
-
+    private JLabel lbl_messageProcessing;
 
 
     Test test;
@@ -69,7 +70,7 @@ public class CheckTests extends JFrame {
 
                 if (!isExeption){
 
-                    HashMap<Integer, String> mapAnswers = currientStudent.getAnswers();
+                    String[] answers = currientStudent.getAnswers();
                     DefaultTableModel modelTableResult = (DefaultTableModel) table_result.getModel();
                     DefaultTableModel modelTableSoureAnswer = (DefaultTableModel) table_sourceAnswerStudents.getModel();
 
@@ -78,7 +79,7 @@ public class CheckTests extends JFrame {
                     rowTableResutlr.add( currientStudent.getFullName());
                     rowSourseAnswer.add( currientStudent.getFullName());
                     List<String> answerList = new ArrayList<>();
-                    for (String el:mapAnswers.values()) {
+                    for (String el:answers) {
                         answerList.add(el);
                     }
                     rowTableResutlr.addAll(Verification.checkAnswers(answerList, trueAnswer));
@@ -88,7 +89,6 @@ public class CheckTests extends JFrame {
                     rowTableResutlr.add(countTrueAnswer(rowTableResutlr));
 
                     modelTableResult.addRow(rowTableResutlr.toArray());
-                    System.out.println(rowSourseAnswer);
                     modelTableSoureAnswer.addRow(rowSourseAnswer.toArray());
 
 
@@ -267,12 +267,14 @@ public class CheckTests extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (GUI.isInt(tf_levelTrueAnswer.getText())){
                     tableInfoRenderer.setLevel(Integer.parseInt(tf_levelTrueAnswer.getText()));
+                    GUI.showMessage("Параметр установлен", lbl_messageProcessing, Color.GREEN);
                 } else {
                     JOptionPane.showMessageDialog(jp_mainCheckTest,
                             "В поле должно быть только число",
                             "Ошибка значения",
                             JOptionPane.WARNING_MESSAGE);
                 }
+
 
             }
         });

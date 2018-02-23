@@ -173,7 +173,7 @@ public class CreateTest extends JFrame {
 
                     if (!isExeption){
                         showListQuestion();
-                        jp_createPanel.setVisible(true);
+                        showElements(jp_descriptionTest, btn_saveDescriptionTest,  jp_createPanel);
                     }else{
                         //Вывод ошибки
                     }

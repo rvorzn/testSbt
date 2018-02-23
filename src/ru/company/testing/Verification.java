@@ -4,25 +4,22 @@ import java.util.*;
 
 public class Verification {
 
-    static String checkAnswers(Student student){
-        HashMap<Integer, Boolean> result = new HashMap<>();
+
+    //Метод для проверки теста после окончания
+    static int countTrueAnswers(Student student) {
         Test test = student.getTest();
-        ArrayList<Question> questionsList = test.getQuestionsList();
-        HashMap<Integer, String> mapAnswerStudents = student.getAnswers();
-        Set<Integer> keySet = mapAnswerStudents.keySet();
+        List<Question> questionsList = test.getQuestionsList();
+        String[] answerStudents = student.getAnswers();
 
         int trueResult = 0;
-        for (int key: keySet) {
-            String trueAnsewer = questionsList.get(key).getTrueAnswer();
-            if (trueAnsewer.equals(mapAnswerStudents.get(key))){
-                result.put(key, true);
+        for (int i = 0; i < questionsList.size(); i++) {
+            String trueAnswer = questionsList.get(i).getTrueAnswer();
+            if (trueAnswer.equalsIgnoreCase(answerStudents[i])) {
                 trueResult++;
-            } else {
-                result.put(key, false);
             }
 
         }
-        return  trueResult + "";
+        return trueResult;
     }
 
     static List<String> checkAnswers(List<String> listAnswers, List<String> listTrueAnswers){

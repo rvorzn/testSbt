@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JTable;
+import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class TableInfoRenderer extends DefaultTableCellRenderer {
     final private Color WHITE = new Color(255,255, 255);
     final private Color GREEN = new Color(57, 244, 116);
     final private Color RED = new Color(236,60, 60);
+
 
     private int level= 1;
     private int rightLevel =5;
@@ -67,7 +69,7 @@ public class TableInfoRenderer extends DefaultTableCellRenderer {
                 if (cellvalue.equals("1")) {
                     cell.setBackground(GREEN);
                 } else {
-                    cell.setBackground(WHITE);
+                    cell.setBackground(RED);
                 }
             } else{
                 cell.setBackground(WHITE);
@@ -85,13 +87,10 @@ public class TableInfoRenderer extends DefaultTableCellRenderer {
             //Окраска ячеек которые подсчитывают кол-во правильных ответов в каждом вопросе
             if (row == 0){
                 if (GUI.isInt(cellvalue)){
-                    System.out.println("rig=" + rightLevel + " lef=" + leftLevel+ "celv =" + cellvalue);
                     if (Integer.parseInt(cellvalue) >= rightLevel) {
-                        System.out.println("Зеленый");
                         cell.setBackground(GREEN);
                     }else
                         if (Integer.parseInt(cellvalue) <= leftLevel){
-                            System.out.println("Крансый");
                             cell.setBackground(RED);
                         }else{
                             cell.setBackground(WHITE);
