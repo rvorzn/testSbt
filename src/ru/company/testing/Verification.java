@@ -25,7 +25,7 @@ public class Verification {
     static List<String> checkAnswers(List<String> listAnswers, List<String> listTrueAnswers){
         List<String> resultList = new ArrayList<>();
         for (int i = 0; i <listTrueAnswers.size() ; i++) {
-            if (!"".equalsIgnoreCase(listAnswers.get(i).trim())){
+            if (listAnswers.get(i) != null && !"".equalsIgnoreCase(listAnswers.get(i).trim())){
                 resultList.add( (listTrueAnswers.get(i).equals(listAnswers.get(i))) ? "1" : "0");
             }else{
                 resultList.add("");

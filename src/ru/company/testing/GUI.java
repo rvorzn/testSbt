@@ -8,6 +8,14 @@ import java.io.*;
 public class GUI {
 
 
+    static <T> void saveObjectDialog(T clz) throws IOException {
+        JFileChooser fc = new JFileChooser();
+        if (fc.showDialog(null, "Сохранить как") == JFileChooser.APPROVE_OPTION) {
+            saveObject(clz, new File((fc.getSelectedFile().getAbsolutePath())));
+        }
+
+    }
+
     static <T> void saveObject(T clz, File file) throws IOException {
         System.out.println(file.getAbsolutePath());
         try (FileOutputStream out = new FileOutputStream(file);
@@ -53,7 +61,7 @@ public class GUI {
             @Override
             public void run() {
                 label.setForeground(color);
-                label.setText(message);
+                label.setText("Результат операции: "  + message);
                 try {
                     Thread.sleep(timeInSeconds*1000);
                 } catch (InterruptedException e) {

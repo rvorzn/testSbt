@@ -179,6 +179,7 @@ public class CheckTests extends JFrame {
                     modelTableTrueresult.addRow(row);
 
                     tf_levelTrueAnswer.setText(Integer.toString(test.getLevel()));
+                    tableInfoRenderer.setLevel(test.getLevel());
                     btn_openTestStudents.setVisible(true);
                     jp_trueAnswer.setVisible(true);
 
@@ -204,6 +205,7 @@ public class CheckTests extends JFrame {
 
                 try {
                     GUI.saveObject(test, currientFileTest);
+                    GUI.showMessage("Данные успешно записанны в файл", lbl_messageProcessing);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
@@ -227,7 +229,7 @@ public class CheckTests extends JFrame {
                 for (int i = 0; i < table_sourceAnswerStudents.getRowCount() ; i++) {
                     int sumTrueAnswer = 0;
                     for (int j = 1; j < table_sourceAnswerStudents.getColumnCount() ; j++) {
-                        if ("".equalsIgnoreCase((table_sourceAnswerStudents.getValueAt(i, j).toString().trim()))){
+                        if (table_sourceAnswerStudents.getValueAt(i, j) == null || "".equalsIgnoreCase((table_sourceAnswerStudents.getValueAt(i, j).toString().trim()))){
                             result = "";
                         }else if (table_sourceAnswerStudents.getValueAt(i, j).equals(answerList.get(j - 1))) {
                             result = "1";
@@ -242,7 +244,7 @@ public class CheckTests extends JFrame {
 
                 }
                 modelTableResult.insertRow(0, countTrueAnswerTheQuestion().toArray()); // добавление строки с подчетом правильных овтетов в столбцах
-
+                GUI.showMessage("Данные успешно обновленны", lbl_messageProcessing);
             }
         });
 
@@ -267,7 +269,7 @@ public class CheckTests extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (GUI.isInt(tf_levelTrueAnswer.getText())){
                     tableInfoRenderer.setLevel(Integer.parseInt(tf_levelTrueAnswer.getText()));
-                    GUI.showMessage("Параметр установлен", lbl_messageProcessing, Color.GREEN);
+                    GUI.showMessage("Параметр установлен", lbl_messageProcessing);
                 } else {
                     JOptionPane.showMessageDialog(jp_mainCheckTest,
                             "В поле должно быть только число",
@@ -285,6 +287,7 @@ public class CheckTests extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (GUI.isInt(tf_leftBorderLine.getText())){
                     tableInfoRenderer.setLeftLevel(Integer.parseInt(tf_leftBorderLine.getText()));
+                    GUI.showMessage("Параметр установлен", lbl_messageProcessing);
                 }else{
                     JOptionPane.showMessageDialog(jp_mainCheckTest,
                             "В поле должно быть только число",
@@ -301,6 +304,7 @@ public class CheckTests extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (GUI.isInt(tf_rigthBorderLine.getText())){
                     tableInfoRenderer.setRightLevel(Integer.parseInt(tf_rigthBorderLine.getText()));
+                    GUI.showMessage("Параметр установлен", lbl_messageProcessing);
                 }else{
                     JOptionPane.showMessageDialog(jp_mainCheckTest,
                             "В поле должно быть только число",

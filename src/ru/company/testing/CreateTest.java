@@ -173,6 +173,10 @@ public class CreateTest extends JFrame {
 
                     if (!isExeption){
                         showListQuestion();
+                        tf_testTitle.setText(test.getTitle());
+                        ta_descriptionTest.setText(test.getDescription());
+                        tf_testLevel.setText(String.valueOf(test.getLevel()));
+                        tf_testTime.setText(String.valueOf(test.getTime()));
                         showElements(jp_descriptionTest, btn_saveDescriptionTest,  jp_createPanel);
                     }else{
                         //Вывод ошибки
@@ -290,7 +294,7 @@ public class CreateTest extends JFrame {
         btn_checkTests.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.showDialogCheckTest();
+                new CheckTests().showWindows();
             }
         });
         //Action save or show description Test
@@ -381,7 +385,7 @@ public class CreateTest extends JFrame {
         setVisible(true);
         pack();
 
-        hideElements(jp_descriptionTest, panelAnswer3,panelAnswer4,panelAnswer5,panelAnswer6,panelAnswer7,
+        hideElements(jp_descriptionTest, panelAnswer3,panelAnswer4,panelAnswer5,panelAnswer6,panelAnswer7, panelAnswer8,
                 btn_saveRefactQuewstion, btn_saveDescriptionTest);
     }
 
