@@ -17,7 +17,7 @@ public class GUI {
     }
 
     static <T> void saveObject(T clz, File file) throws IOException {
-        System.out.println(file.getAbsolutePath());
+
         try (FileOutputStream out = new FileOutputStream(file);
              ObjectOutputStream outputStream = new ObjectOutputStream(out))
         {
@@ -25,14 +25,22 @@ public class GUI {
         }
     }
 
-    static <T> T openObject(T clz, File currientFile) throws IOException, ClassNotFoundException {
-        T test = null;
+    static <T> T openObjectDialog(T clz) throws IOException, ClassNotFoundException, ClassCastException{
+        JFileChooser fileopen = new JFileChooser();
+        if (fileopen.showDialog(null, "Открыть файл") == JFileChooser.APPROVE_OPTION) {
+            File file = new File((fileopen.getSelectedFile().getAbsolutePath()));
+            return openObject(clz, file);
+        }
+        return null;
+    }
+
+
+    static <T> T openObject(T clz, File currientFile) throws IOException, ClassNotFoundException, ClassCastException {
             try (FileInputStream in = new FileInputStream(currientFile);
                  ObjectInputStream inputStream = new ObjectInputStream(in))
             {
-                test = (T) inputStream.readObject();
+                return (T) inputStream.readObject();
             }
-        return test;
     }
 
     public static boolean isInt(String string ) {

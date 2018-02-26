@@ -1,18 +1,16 @@
 package ru.company.testing;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.*;
 
 public class Question implements Serializable {
     private String question;
     private String description;
-    private File image;
     private TreeMap<Integer, String>  answerСhoice = new TreeMap<>();
     private String trueAndswer;
 
 
-    //sets--------------------------------------------------------------
+    // sets --------------------------------------------------------------
     public void setTrueAndswer(String trueAndswer) {
         this.trueAndswer = trueAndswer;
     }
@@ -49,23 +47,12 @@ public class Question implements Serializable {
         return answerСhoice;
     }
 
-    public String getAnsver(){
+    public String getAnsverToString(){
         String stringAnser= "";
         for (  Map.Entry<Integer, String> answer : answerСhoice.entrySet()) {
             stringAnser += answer.getKey()+ ") "  +answer.getValue() +"\n";
         }
         return stringAnser;
 
-    }
-
-    @Override
-    public String toString() {
-        return "Question{" +
-                "question='" + question + '\'' +
-                ", description='" + description + '\'' +
-                ", image=" + image +
-                ", answerСhoice=" + answerСhoice +
-                ", trueAndswer='" + trueAndswer + '\'' +
-                '}';
     }
 }

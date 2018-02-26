@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import static ru.company.testing.GUI.hideElements;
 import static ru.company.testing.GUI.isInt;
@@ -61,20 +62,16 @@ public class CreateTest extends JFrame {
     private JTextField tf_testLevel;
     private JTextField tf_testTitle;
 
-    private JLabel lbl_Error;
+//    private JLabel lbl_Error;
     private JLabel labelHello;
     private JLabel lbl_nameTest;
 
 
 
-
-
-    Test test = new Test("fileTest");
+    Test test ;
     int tempKey;
     public String password = "1234";
-
-    ArrayList<Question> questionList;
-
+    List<Question> questionList;
     JPanel[] answerArJpanel = new JPanel[]{panelAnswer1, panelAnswer2, panelAnswer3, panelAnswer4, panelAnswer5, panelAnswer6, panelAnswer7, panelAnswer8};
     JTextField[] answerArField = new JTextField[]{answerField1, answerField2, answerField3, answerField4, answerField5, answerField6, answerField7, answerField8};
     CreateTest(){
@@ -146,8 +143,8 @@ public class CreateTest extends JFrame {
                 clearFields();
 
                 showListQuestion();
-                System.out.println(newQuestion.toString());
-                lbl_Error.setText("Вопрос удачно добавлен");
+
+           //     lbl_Error.setText("Вопрос удачно добавлен");
 
             }
         });
@@ -192,17 +189,16 @@ public class CreateTest extends JFrame {
         btnSaveTest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser fc = new JFileChooser();
-                if (fc.showDialog(null, "Сохранить как") == JFileChooser.APPROVE_OPTION){
-                    File fileTest = new File((fc.getSelectedFile().getAbsolutePath()));
-                    try {
-                        GUI.saveObject(test, fileTest);
-                    }
-                    catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+                //филтр для правильных ответов
+                for (Question question:test.getQuestionsList()){
+                    question.setTrueAndswer(Verification.filterAnswer(question.getTrueAnswer()));
                 }
 
+                try {
+                    GUI.saveObjectDialog(test);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
 
             }
         });
@@ -243,11 +239,11 @@ public class CreateTest extends JFrame {
                         }
 
                     }else{
-                        lbl_Error.setText("К сожалению такого вопроса с таким № нет в списке");
+//                        lbl_Error.setText("К сожалению такого вопроса с таким № нет в списке");
                     }
 
                 }else {
-                 lbl_Error.setText("Неправильно заполненно поле");
+//                 lbl_Error.setText("Неправильно заполненно поле");
                 }
 
 
@@ -283,7 +279,7 @@ public class CreateTest extends JFrame {
                 clearFields();
                 showListQuestion();
 
-                lbl_Error.setText("Вопрос удачно изменен добавлен");
+//                lbl_Error.setText("Вопрос удачно изменен добавлен");
                 btn_saveRefactQuewstion.setVisible(false);
                 btnAddQuestion.setVisible(true);
                 btnSaveTest.setVisible(true);
@@ -305,41 +301,48 @@ public class CreateTest extends JFrame {
 
                         test.setTitle(tf_testTitle.getText());
                         test.setDescription(ta_descriptionTest.getText());
-                    if (!"".equalsIgnoreCase(tf_testLevel.getText().trim()) || isInt(tf_testLevel.getText())) {
-                        int tmp = Integer.parseInt(tf_testLevel.getText());
-                        if (tmp >= 0){
-                            test.setLevel(tmp);
+
+                    if (!"".equalsIgnoreCase(tf_testLevel.getText().trim())){
+                        if (isInt(tf_testLevel.getText())) {
+                            int tmp = Integer.parseInt(tf_testLevel.getText());
+                            if (tmp >= 0){
+                                test.setLevel(tmp);
+                            }else{
+                                JOptionPane.showMessageDialog(jp_mainCreateTest,
+                                        "В поле должно быть положительное число",
+                                        "Ошибка значения",
+                                        JOptionPane.WARNING_MESSAGE);
+                            }
+
+
+
                         }else{
                             JOptionPane.showMessageDialog(jp_mainCreateTest,
-                                    "В поле должно быть gоложительное число",
+                                    "В поле должно быть только число ",
                                     "Ошибка значения",
                                     JOptionPane.WARNING_MESSAGE);
                         }
-
-
-                    }else{
-                        JOptionPane.showMessageDialog(jp_mainCreateTest,
-                                "В поле должно быть только число ",
-                                "Ошибка значения",
-                                JOptionPane.WARNING_MESSAGE);
                     }
-                    if (!"".equalsIgnoreCase(tf_testTime.getText().trim()) || isInt(tf_testTime.getText())){
-                        int tmp = Integer.parseInt(tf_testTime.getText()) ;
-                        if (tmp>0){
-                            test.setTime(tmp);
-                        }else{
+                    if (!"".equalsIgnoreCase(tf_testTime.getText().trim()) ){
+                        if (isInt(tf_testTime.getText())){
+                            int tmp = Integer.parseInt(tf_testTime.getText()) ;
+                            if (tmp>0){
+                                test.setTime(tmp);
+                            }else{
+                                JOptionPane.showMessageDialog(jp_mainCreateTest,
+                                        "В поле должно быть gоложительное число и не ноль",
+                                        "Ошибка значения",
+                                        JOptionPane.WARNING_MESSAGE);
+                            }
+
+                        }else {
                             JOptionPane.showMessageDialog(jp_mainCreateTest,
-                                    "В поле должно быть gоложительное число и не ноль",
+                                    "В поле должно быть только число",
                                     "Ошибка значения",
                                     JOptionPane.WARNING_MESSAGE);
                         }
-
-                    }else {
-                        JOptionPane.showMessageDialog(jp_mainCreateTest,
-                                "В поле должно быть только число",
-                                "Ошибка значения",
-                                JOptionPane.WARNING_MESSAGE);
                     }
+
                         btn_saveDescriptionTest.setText("Показать описание теста");
                         jp_descriptionTest.setVisible(false);
                 }else{
@@ -355,6 +358,7 @@ public class CreateTest extends JFrame {
         });
     }
 
+    //отображение списка вопросов
     private void showListQuestion() {
         textPane_QuestionList.setText("");
         StringBuilder listQestion = new StringBuilder();
@@ -368,6 +372,7 @@ public class CreateTest extends JFrame {
 
     }
 
+    //очистка полей
     private void clearFields() {
         for (JTextField field: answerArField) {
             field.setText("");
@@ -377,13 +382,15 @@ public class CreateTest extends JFrame {
         tf_trueAnswer.setText("");
     }
 
-    public void showWindow(){
+
+    public void start(){
         setContentPane(jp_mainCreateTest);
-        jp_dialogСhoice.setVisible(false);
         jp_createPanel.setVisible(false);
         setSize(750, 400);
         setVisible(true);
         pack();
+
+        jp_authPanel.setVisible(false);
 
         hideElements(jp_descriptionTest, panelAnswer3,panelAnswer4,panelAnswer5,panelAnswer6,panelAnswer7, panelAnswer8,
                 btn_saveRefactQuewstion, btn_saveDescriptionTest);

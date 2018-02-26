@@ -12,13 +12,12 @@ public class TableInfoRenderer extends DefaultTableCellRenderer {
     final private Color GREEN = new Color(57, 244, 116);
     final private Color RED = new Color(236,60, 60);
 
-
     private int level= 1;
     private int rightLevel =5;
     private int leftLevel =2;
 
 
-
+    // sets -------------------------------------------------------------------
     public void setLevel(int level) {
         this.level = level;
     }
@@ -31,9 +30,7 @@ public class TableInfoRenderer extends DefaultTableCellRenderer {
         this.leftLevel = leftLevel;
     }
 
-    public int getLevel() {
-        return level;
-    }
+    // gets -------------------------------------------------------------------
 
     public int getRightLevel() {
         return rightLevel;
@@ -42,6 +39,8 @@ public class TableInfoRenderer extends DefaultTableCellRenderer {
     public int getLeftLevel() {
         return leftLevel;
     }
+
+    // methods -----------------------------------------------------------------
 
     @Override
     public Component getTableCellRendererComponent(JTable table,
@@ -105,12 +104,8 @@ public class TableInfoRenderer extends DefaultTableCellRenderer {
             if (column == 0 ){ // 1 столбец
                 cell.setBackground(WHITE);
             }
-
-
         return cell;
     }
-
-
 }
 
 

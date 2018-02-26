@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="jp_mainCreateTest" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="868" height="1166"/>
+      <xy x="20" y="20" width="895" height="1166"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -42,7 +42,7 @@
           </component>
         </children>
       </grid>
-      <grid id="30690" binding="jp_createPanel" layout-manager="GridLayoutManager" row-count="18" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="30690" binding="jp_createPanel" layout-manager="GridLayoutManager" row-count="18" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -78,7 +78,7 @@
           </component>
           <component id="d329f" class="javax.swing.JTextField" binding="tf_trueAnswer">
             <constraints>
-              <grid row="13" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="13" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
@@ -352,7 +352,7 @@
           </vspacer>
           <component id="43703" class="javax.swing.JLabel">
             <constraints>
-              <grid row="1" column="4" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="4" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font size="12" style="1"/>
@@ -361,7 +361,7 @@
           </component>
           <hspacer id="d41bb">
             <constraints>
-              <grid row="0" column="4" row-span="1" col-span="3" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+              <grid row="0" column="4" row-span="1" col-span="4" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <minimum-size width="100" height="-1"/>
                 <preferred-size width="150" height="-1"/>
                 <maximum-size width="200" height="-1"/>
@@ -377,7 +377,7 @@
           </hspacer>
           <component id="8fb90" class="javax.swing.JButton" binding="btnSaveTest">
             <constraints>
-              <grid row="17" column="5" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+              <grid row="17" column="6" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="-1" height="20"/>
               </grid>
             </constraints>
@@ -395,7 +395,7 @@
           </component>
           <component id="9333e" class="javax.swing.JButton" binding="btn_removeQuewstion">
             <constraints>
-              <grid row="15" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="15" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Удалить вопрос"/>
@@ -403,7 +403,7 @@
           </component>
           <component id="35648" class="javax.swing.JButton" binding="btn_refactQuestion">
             <constraints>
-              <grid row="14" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="14" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Редактировать вопрос"/>
@@ -411,7 +411,7 @@
           </component>
           <component id="54f29" class="javax.swing.JTextField" binding="textField_refactQuestion">
             <constraints>
-              <grid row="14" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="14" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="30" height="-1"/>
               </grid>
             </constraints>
@@ -419,7 +419,7 @@
           </component>
           <component id="82085" class="javax.swing.JTextField" binding="textField_removQuewstion">
             <constraints>
-              <grid row="15" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="15" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="30" height="-1"/>
               </grid>
             </constraints>
@@ -435,7 +435,7 @@
           </component>
           <scrollpane id="2109e">
             <constraints>
-              <grid row="2" column="4" row-span="12" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="4" row-span="12" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -465,6 +465,30 @@
               </component>
             </children>
           </scrollpane>
+          <component id="2de23" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="14" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Вопрос №"/>
+            </properties>
+          </component>
+          <component id="fae94" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="15" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Вопрос №"/>
+            </properties>
+          </component>
+          <component id="21e35" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="13" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Пример ввода(123) (231) (1,2,3) (2 3)"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="92621" binding="jp_dialogСhoice" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -501,7 +525,7 @@
           </component>
         </children>
       </grid>
-      <grid id="99d17" binding="jp_descriptionTest" layout-manager="GridLayoutManager" row-count="3" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="99d17" binding="jp_descriptionTest" layout-manager="GridLayoutManager" row-count="3" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -593,6 +617,14 @@
               </grid>
             </constraints>
             <properties/>
+          </component>
+          <component id="931fb" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="в минутах"/>
+            </properties>
           </component>
         </children>
       </grid>

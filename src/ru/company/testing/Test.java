@@ -6,23 +6,16 @@ import java.util.*;
 public class Test implements Serializable {
     private String title;
     private String description;
-    private  ArrayList<Question> questionsList = new ArrayList<>();
+    private  List <Question> questionsList = new ArrayList<>();
     private int time;
     private int level;
 
-    // constructors
+    // constructors -------------------------------
     Test(String title){
         this.title = title;
     }
 
-    public ArrayList<Question> getQuestionsList() {
-        return questionsList;
-    }
-
-    public void changeQuestion(int key, Question question){
-        questionsList.set(key, question);
-
-    }
+    // Gets ------------------------------
 
     public String getDescription() {
         return description;
@@ -40,6 +33,21 @@ public class Test implements Serializable {
         return title;
     }
 
+    public List<Question> getQuestionsList() {
+        return questionsList;
+    }
+
+    public void changeQuestion(int key, Question question){
+        questionsList.set(key, question);
+    }
+
+    public Question getQestion(int key){
+        return questionsList.get(key);
+    }
+
+
+    // Sets ------------------------------
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -56,19 +64,17 @@ public class Test implements Serializable {
         this.description = description;
     }
 
+    // metods -----------------------------
+
     public void addQuestion(Question question){
         questionsList.add(question);
-    }
-
-    public Question getQestion(int key){
-        return questionsList.get(key);
     }
 
     public void removeQuestion(int key){
         questionsList.remove(key);
     }
 
-    public void addAllQuestion(ArrayList<Question> listQuestion){
+    public void addAllQuestion(List<Question> listQuestion){
         questionsList = listQuestion;
     }
 }
