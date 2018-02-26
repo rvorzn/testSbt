@@ -1,11 +1,13 @@
-package ru.company.testing;
+package ru.company.testing.utils;
+
+import ru.company.swings.GUI;
 
 import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JTable;
-import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
+
 
 public class TableInfoRenderer extends DefaultTableCellRenderer {
     final private Color WHITE = new Color(255,255, 255);

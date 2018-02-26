@@ -24,8 +24,7 @@ public class Question implements Serializable {
     }
 
     public void setAnswerСhoice(String answerСhoice){
-        int count =  this.answerСhoice.size()+1;
-        this.answerСhoice.put(count, answerСhoice);
+        this.answerСhoice.put(this.answerСhoice.size()+1, answerСhoice);
     }
 
     // gets ----------------------------------------------------------

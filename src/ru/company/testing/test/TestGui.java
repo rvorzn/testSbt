@@ -1,4 +1,11 @@
-package ru.company.testing;
+package ru.company.testing.test;
+
+import ru.company.testing.Question;
+import ru.company.testing.Student;
+import ru.company.testing.Test;
+import ru.company.testing.utils.Verification;
+import ru.company.swings.GUI;
+import ru.company.timers.Timer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,9 +15,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-import static ru.company.testing.GUI.hideElements;
-import static ru.company.testing.GUI.showElements;
+import static ru.company.swings.GUI.hideElements;
+import static ru.company.swings.GUI.showElements;
+
 
 public class TestGui extends JFrame {
     private JPanel jp_welcom;
@@ -20,6 +29,7 @@ public class TestGui extends JFrame {
     private JPanel jp_timer;
     private JPanel jp_mainTestGui;
     private JPanel jp_descriptonTest;
+    private JPanel jp_endTest;
 
     private JButton btn_beginTest;
     private JButton btn_showResult;
@@ -46,8 +56,8 @@ public class TestGui extends JFrame {
     private JTextPane tp_answers;
     private JTextPane tp_descriptionTest;
     private JTextArea ta_listQuestion;
-    private JPanel jp_endTest;
     private JLabel lbl_resultTest;
+    private JButton btn_saveAs;
 
     private Student student;
     private boolean isEnd = false;
@@ -110,11 +120,6 @@ public class TestGui extends JFrame {
         btn_exitPogram.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    GUI.saveObjectDialog(student); // Сохранить туда куда хочет пользователь через диалоговое окно
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
                 System.exit(0);
             }
         });
@@ -236,6 +241,18 @@ public class TestGui extends JFrame {
 
             }
         });
+
+        //Action SaveAs
+        btn_saveAs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    GUI.saveObjectDialog(student); // Сохранить туда куда хочет пользователь через диалоговое окно
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
     }
 
     //получение вопроса
@@ -265,7 +282,13 @@ public class TestGui extends JFrame {
 
             tp_descriptionQuestion.setText(question.getDescription());
             tp_question.setText(question.getQuestion());
-            tp_answers.setText(question.getAnsverToString());
+
+            String stringAnswer= "";
+            for (  Map.Entry<Integer, String> answer : question.getAnswerСhoice().entrySet()) {
+                stringAnswer += answer.getKey()+ ") "  +answer.getValue() +"\n";
+            }
+
+            tp_answers.setText(stringAnswer);
             //отображение кнопок управление вопросами и текущий вопрос
             btn_preQuestion.setVisible(keyQuestion == 0 ? false : true);
             btn_nextQuestion.setVisible(keyQuestion == (test.getQuestionsList().size()-1) ? false : true);
@@ -283,7 +306,7 @@ public class TestGui extends JFrame {
             keyQuestion--;
 
         }
-        pack();
+
     }
 
     // проверка, что тест можно закончить

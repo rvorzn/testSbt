@@ -8,7 +8,7 @@ public class Student implements Serializable {
     private Test test;
     private String[] answers;
 
-    Student(String fullName){
+    public Student(String fullName){
         this.fullName = fullName;
     }
 

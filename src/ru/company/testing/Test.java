@@ -11,7 +11,7 @@ public class Test implements Serializable {
     private int level;
 
     // constructors -------------------------------
-    Test(String title){
+    public Test(String title){
         this.title = title;
     }
 

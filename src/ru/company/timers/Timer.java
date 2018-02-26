@@ -1,4 +1,4 @@
-package ru.company.testing;
+package ru.company.timers;
 
 import static java.lang.Thread.interrupted;
 import static java.lang.Thread.sleep;
@@ -13,7 +13,7 @@ public class Timer implements Runnable {
         this.countPause = Integer.MAX_VALUE;
     }
 
-    Timer(int time, int countPause){
+    public Timer(int time, int countPause){
         this.time = time;
         this.countPause = countPause;
     }

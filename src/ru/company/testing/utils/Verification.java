@@ -1,4 +1,4 @@
-package ru.company.testing;
+package ru.company.testing.utils;
 
 import java.util.*;
 
@@ -39,7 +39,7 @@ public class Verification {
     //при применение этого метода
 
     //Метод возращающий кол-во правильных ответов и меняющий лист ответов студентов на лист правильных и неправильных овтетов
-    static int countTrueAndCheck(List<String> listAnswers, List<String> listTrueAnswers){
+    public static int countTrueAndCheck(List<String> listAnswers, List<String> listTrueAnswers){
         int countTrue = 0;
         for (int i = 0; i <listTrueAnswers.size() ; i++) {
             if (listAnswers.get(i) != null && !"".equalsIgnoreCase(listAnswers.get(i).trim())){
@@ -56,7 +56,8 @@ public class Verification {
         return  countTrue;
     }
 
-    static String filterAnswer(String tmp){
+    //метод который приводит строку к стандартку 123 где цифры распологаются по возрастанию
+    public static String filterAnswer(String tmp){
         TreeSet<Integer> tmpSet = new TreeSet<>();
 
         tmp = tmp.trim();

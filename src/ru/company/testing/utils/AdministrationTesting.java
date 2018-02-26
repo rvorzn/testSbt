@@ -1,5 +1,4 @@
-package ru.company.testing;
-
+package ru.company.testing.utils;
 
 
 public class AdministrationTesting {

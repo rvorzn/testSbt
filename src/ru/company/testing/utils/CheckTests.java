@@ -1,4 +1,7 @@
-package ru.company.testing;
+package ru.company.testing.utils;
+
+import ru.company.swings.GUI;
+import ru.company.testing.*;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -8,7 +11,8 @@ import java.io.*;
 import java.util.*;
 import java.util.List;
 
-import static ru.company.testing.GUI.hideElements;
+import static ru.company.swings.GUI.hideElements;
+
 
 
 public class CheckTests extends JFrame {
@@ -132,7 +136,7 @@ public class CheckTests extends JFrame {
                     //отображаем панель если скрыта
                     if (!jp_resultStudents.isVisible()) { jp_resultStudents.setVisible(true); };
                 }
-                pack();
+                setExtendedState(MAXIMIZED_BOTH);
             }
         });
 
@@ -285,7 +289,7 @@ public class CheckTests extends JFrame {
                     btn_showActualAnswerStudents.setText("Скрыть ответы студентов");
                     jp_sourceAnswerStudents.setVisible(true);
                 }
-                pack();
+
             }
         });
 

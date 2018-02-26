@@ -1,4 +1,4 @@
-package ru.company.testing;
+package ru.company.swings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.io.*;
 public class GUI {
 
 
-    static <T> void saveObjectDialog(T clz) throws IOException {
+    public static <T> void saveObjectDialog(T clz) throws IOException {
         JFileChooser fc = new JFileChooser();
         if (fc.showDialog(null, "Сохранить как") == JFileChooser.APPROVE_OPTION) {
             saveObject(clz, new File((fc.getSelectedFile().getAbsolutePath())));
@@ -16,7 +16,7 @@ public class GUI {
 
     }
 
-    static <T> void saveObject(T clz, File file) throws IOException {
+    public static <T> void saveObject(T clz, File file) throws IOException {
 
         try (FileOutputStream out = new FileOutputStream(file);
              ObjectOutputStream outputStream = new ObjectOutputStream(out))
@@ -25,7 +25,7 @@ public class GUI {
         }
     }
 
-    static <T> T openObjectDialog(T clz) throws IOException, ClassNotFoundException, ClassCastException{
+    public static <T> T openObjectDialog(T clz) throws IOException, ClassNotFoundException, ClassCastException{
         JFileChooser fileopen = new JFileChooser();
         if (fileopen.showDialog(null, "Открыть файл") == JFileChooser.APPROVE_OPTION) {
             File file = new File((fileopen.getSelectedFile().getAbsolutePath()));
@@ -35,7 +35,7 @@ public class GUI {
     }
 
 
-    static <T> T openObject(T clz, File currientFile) throws IOException, ClassNotFoundException, ClassCastException {
+    public static <T> T openObject(T clz, File currientFile) throws IOException, ClassNotFoundException, ClassCastException {
             try (FileInputStream in = new FileInputStream(currientFile);
                  ObjectInputStream inputStream = new ObjectInputStream(in))
             {
