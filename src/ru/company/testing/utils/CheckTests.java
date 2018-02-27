@@ -30,12 +30,9 @@ public class CheckTests extends JFrame {
     private JButton btn_setRigth;
     private JButton btn_setLeft;
 
-
     private JTable table_result;
     private JTable tableAnswer;
     private JTable table_sourceAnswerStudents;
-
-
 
     private JTextField tf_levelTrueAnswer;
     private JTextField tf_leftBorderLine;
@@ -49,6 +46,10 @@ public class CheckTests extends JFrame {
     List<String> trueAnswer;
     TableInfoRenderer tableInfoRenderer = new TableInfoRenderer();
     double defaultProcLevel = 0.2d; // 20% процентов значение для границ кол-ва праавильных ответов на каждый вопрос
+
+    interface View{
+
+    }
 
     public CheckTests() {
 
@@ -80,7 +81,10 @@ public class CheckTests extends JFrame {
 //
 //                }
 
+
+
                 if (!isException){//если все открылось хорошо
+
                     if (!currientStudent.getTest().getTitle().equalsIgnoreCase(test.getTitle())){
                         JOptionPane.showMessageDialog(jp_mainCheckTest,
                                 "Данный тест студента, не совпадает с тестом который открыт для проверки",
@@ -89,9 +93,28 @@ public class CheckTests extends JFrame {
                         return;
                     }
 
+                    String fullNameStudent = currientStudent.getFullName();
+
                     //получаем мрдели 2 таблиц
                     DefaultTableModel modelTableResult = (DefaultTableModel) table_result.getModel();
                     DefaultTableModel modelTableSoureAnswer = (DefaultTableModel) table_sourceAnswerStudents.getModel();
+
+                    for (int i = 0; i < modelTableResult.getRowCount() ; i++) {
+                        String  celvalue = (String) modelTableResult.getValueAt(i, 0);
+                        if (celvalue.equalsIgnoreCase(fullNameStudent)){
+                            int result = JOptionPane.showConfirmDialog(jp_mainCheckTest,
+                                    "Данный студент уже добавлен, хотите добавить его еще раз?",
+                                    "Сообщение",
+                                    JOptionPane.YES_NO_OPTION,
+                                    JOptionPane.WARNING_MESSAGE);
+                            System.out.println(result);
+                            if (result == 1) {
+                                return;
+                            }else{
+                                break;
+                            }
+                        }
+                    }
 
 
                     //создаем коллекцию листов для заполнения строк
@@ -183,7 +206,13 @@ public class CheckTests extends JFrame {
                         modelTableTrueAnswer.removeRow(i-1);
                     }
 
-                    //Вставить очистку таблицы ответов  студентов и таблицу результ
+                    for (int i = modelTableResult.getRowCount(); i >0 ; i--) {
+                        modelTableResult.removeRow(i-1);
+                    }
+
+                    for (int i = modelTableSourceAnswerStudent.getRowCount(); i > 0 ; i--) {
+                        modelTableSourceAnswerStudent.removeRow(i-1);
+                    }
 
                     //полечаем лист вопросов
                     List<Question> arrQuestions = test.getQuestionsList();
@@ -375,7 +404,19 @@ public class CheckTests extends JFrame {
 //        setSize(750, 400);
         pack();
         setVisible(true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
+
+
+    abstract class Viewer implements View{
+
+
+    }
+
+
 }
+
+
 
 

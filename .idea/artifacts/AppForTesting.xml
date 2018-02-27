@@ -3,11 +3,11 @@
     <output-path>$PROJECT_DIR$/out/artifacts/AppForTesting</output-path>
     <properties id="javafx-properties">
       <options>
-        <option name="appClass" value="ru.company.testing.Main" />
+        <option name="appClass" value="ru.company.testing.test.Testing" />
         <option name="description" value="" />
         <option name="htmlPlaceholderId" value="" />
-        <option name="nativeBundle" value="exe" />
-        <option name="title" value="1111" />
+        <option name="nativeBundle" value="dmg" />
+        <option name="title" value="test" />
         <option name="vendor" value="" />
         <option name="version" value="" />
       </options>

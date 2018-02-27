@@ -106,9 +106,9 @@ public class TestGui extends JFrame {
                 for (Question question:test.getQuestionsList()) {
                     trueAnswer.add(question.getTrueAnswer());
                 }
-
+                String[] tmpAnswerStudent =  Arrays.copyOf(student.getAnswers(), student.getAnswers().length );
                 lbl_resultTest.setText("Правильных ответов: " +
-                        String.valueOf(Verification.countTrueAndCheck(Arrays.asList(student.getAnswers()), trueAnswer )) +
+                        String.valueOf(Verification.countTrueAndCheck(Arrays.asList(tmpAnswerStudent), trueAnswer )) +
                         " из " + test.getQuestionsList().size() );
 
                 showElements(lbl_resultTest);

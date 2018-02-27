@@ -397,6 +397,7 @@ public class CreateTest extends JFrame {
 
         hideElements(jp_descriptionTest, panelAnswer3,panelAnswer4,panelAnswer5,panelAnswer6,panelAnswer7, panelAnswer8,
                 btn_saveRefactQuewstion, btn_saveDescriptionTest);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
 }
